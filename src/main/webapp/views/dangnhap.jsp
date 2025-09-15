@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%
     String savedUser = "";
     String savedPass = "";
@@ -21,14 +21,15 @@
 <title>Đăng nhập</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 <style>
-    /* Checkbox nhỏ và căn trái */
+
     .checkbox-row {
-        display: flex;
-        align-items: center;
-        gap: 8px; /* Khoảng cách giữa checkbox và label */
-        margin: 5px 0;
-        font-size: 0.85em; /* Nhỏ hơn text mặc định */
-    }
+    display: flex;
+    align-items: center;
+    column-gap: 8px; /* khoảng cách giữa các phần tử con */
+    margin: 5px 0;
+    font-size: 0.85em;
+}
+    
     .checkbox-row input[type="checkbox"] {
         width: 14px;
         height: 14px; /* Nhỏ hơn mặc định */

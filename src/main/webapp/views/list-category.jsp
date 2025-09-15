@@ -11,7 +11,8 @@
 
 <div class="d-flex">
     <!-- Sidebar -->
-    <jsp:include page="/views/sidebar.jsp"/>
+    <jsp:include page="sidebar.jsp"/>
+
 
     <!-- Main Content -->
     <div class="container-fluid" style="margin-left:250px; padding:20px;">
@@ -45,23 +46,23 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${categories}" var="cate" varStatus="STT">
-					    <tr>
-					        <td>${STT.index + 1}</td>
-					        <c:url value="/image?fname=${cate.icon}" var="imgUrl"/>
-					        <td>
-					            <img src="${imgUrl}" class="img-thumbnail shadow-sm" 
-					                 style="width:120px; height:100px; object-fit:cover;">
-					        </td>
-					        <td class="fw-bold text-secondary">${cate.catename}</td>
-					        <td>
-					            <a href="<c:url value='/admin/category/edit?id=${cate.cateid}'/>" 
-					               class="btn btn-sm btn-warning me-1">✏️ Sửa</a>
-					            <a href="<c:url value='/admin/category/delete?id=${cate.cateid}'/>" 
-					               class="btn btn-sm btn-danger"
-					               onclick="return confirm('Bạn có chắc muốn xóa danh mục này?');">🗑️ Xóa</a>
-					        </td>
-					    </tr>
-					</c:forEach>
+                        <tr>
+                            <td>${STT.index + 1}</td>
+                            <td>
+                                <img src="${pageContext.request.contextPath}/image?fname=${cate.icon}" 
+                                     class="img-thumbnail shadow-sm"
+                                     style="width:120px; height:100px; object-fit:cover;">
+                            </td>
+                            <td class="fw-bold text-secondary">${cate.catename}</td>
+                            <td>
+                                <a href="<c:url value='/admin/category/edit?id=${cate.cateid}'/>" 
+                                   class="btn btn-sm btn-warning me-1">✏️ Sửa</a>
+                                <a href="<c:url value='/admin/category/delete?id=${cate.cateid}'/>" 
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa danh mục này?');">🗑️ Xóa</a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
 

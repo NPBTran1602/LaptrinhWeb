@@ -81,13 +81,16 @@
 		    </c:if>
 		
 		    <input type="hidden" name="action" value="checkEmail"/>
-		    <input type="hidden" name="username" value="${username}"/>
+		
+		    <label>Tên đăng nhập:</label>
+		    <input type="text" name="username" placeholder="Nhập tên đăng nhập" required>
 		
 		    <label>Email:</label>
-		    <input type="text" name="email" placeholder="Nhập email gắn với tài khoản ${username}" required>
+		    <input type="text" name="email" placeholder="Nhập email gắn với tài khoản" required>
 		
 		    <button type="submit">Xác nhận</button>
 		</form>
+
 
     </div>
 </body>
