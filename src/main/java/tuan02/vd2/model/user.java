@@ -10,7 +10,7 @@ public class user implements Serializable {
     private String userName;
     private String fullName;
     private String passWord;
-    private String avatar;
+    private String avatar; // Sử dụng String nếu lưu đường dẫn, hoặc byte[] nếu dùng BLOB
     private int roleid;
     private String phone;
     private Date createdDate;

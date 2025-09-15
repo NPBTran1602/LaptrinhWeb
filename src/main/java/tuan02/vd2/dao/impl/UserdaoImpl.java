@@ -1,5 +1,6 @@
 package tuan02.vd2.dao.impl;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -132,5 +133,32 @@ public class UserdaoImpl implements Userdao {
         }
         return false;
     }
+
+	@Override
+	public void insert(user User, InputStream avatarStream) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public String findEmailByUsername(String username) {
+	    String email = null;
+	    String sql = "SELECT email FROM [User] WHERE username = ?";
+	    try {
+	        conn = new DBconnection().getConnection();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, username);
+	        rs = ps.executeQuery();
+	        if (rs.next()) {
+	            email = rs.getString("email");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBconnection.close(conn, ps, rs);
+	    }
+	    return email;
+	}
+
 
 }

@@ -33,16 +33,19 @@ public class ForgetPasswordController extends HttpServlet {
 
         if ("checkEmail".equals(action)) {
             String email = req.getParameter("email");
+            String username = req.getParameter("username"); // lấy username từ form
 
-            if (service.checkExistEmail(email)) {
-                // Nếu email tồn tại → chuyển sang form nhập mật khẩu mới
+            String emailFromDb = service.findEmailByUsername(username);
+
+            if (emailFromDb != null && emailFromDb.equals(email)) {
                 req.setAttribute("email", email);
                 req.getRequestDispatcher("/views/resetpassword.jsp").forward(req, resp);
             } else {
-                req.setAttribute("alert", "Email không tồn tại trong hệ thống!");
+                req.setAttribute("alert", "Email không khớp với tài khoản!");
                 req.getRequestDispatcher("/views/forgetpassword.jsp").forward(req, resp);
             }
         }
+
 
         if ("resetPassword".equals(action)) {
             String email = req.getParameter("email");

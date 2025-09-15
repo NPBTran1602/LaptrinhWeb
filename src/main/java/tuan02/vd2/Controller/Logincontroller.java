@@ -18,19 +18,13 @@ import tuan02.vd2.service.impl.userServiceImpl;
 @WebServlet(urlPatterns = "/dangnhap")
 public class Logincontroller extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	        throws ServletException, IOException {
+	    // Bỏ kiểm tra session, luôn hiện login
+	    req.getRequestDispatcher("/views/dangnhap.jsp").forward(req, resp);
+	}
 
-        HttpSession session = req.getSession(false);
-        if (session != null && session.getAttribute("account") != null) {
-            // Nếu đã login rồi thì chuyển thẳng sang category list
-            resp.sendRedirect(req.getContextPath() + "/admin/category/list");
-            return;
-        }
-
-        req.getRequestDispatcher("/views/dangnhap.jsp").forward(req, resp);
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)

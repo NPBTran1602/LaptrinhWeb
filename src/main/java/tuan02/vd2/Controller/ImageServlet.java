@@ -20,30 +20,32 @@ public class ImageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        // Lấy tên file từ DB (không phải full path)
         String fname = req.getParameter("fname");
         if (fname == null || fname.isEmpty()) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File name is missing");
             return;
         }
 
-        // Lấy file từ thư mục upload đã config
+        // Ghép với thư mục upload
         String uploadPath = Constant.DIR;
         File file = new File(uploadPath, fname);
 
-        if (!file.exists()) {
+        // Kiểm tra file tồn tại
+        if (!file.exists() || !file.isFile()) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found: " + fname);
             return;
         }
 
-        // Xác định loại file (jpg, png, gif, webp…)
+        // Xác định loại MIME
         String mimeType = getServletContext().getMimeType(file.getName());
-        if (mimeType == null || !mimeType.startsWith("image")) {
-            mimeType = "image/*"; // fallback cho mọi ảnh
+        if (mimeType == null) {
+            mimeType = "application/octet-stream";
         }
         resp.setContentType(mimeType);
         resp.setContentLengthLong(file.length());
 
-        // Gửi dữ liệu ảnh về client
+        // Trả ảnh về client
         try (FileInputStream fis = new FileInputStream(file);
              OutputStream os = resp.getOutputStream()) {
             byte[] buffer = new byte[8192];

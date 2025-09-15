@@ -25,7 +25,7 @@ public class CategoryAddController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private CategoryService categoryService = new CategoryServiceImpl();
     
-    // Đường dẫn lưu file upload
+    // Thư mục lưu file thực tế (nên trỏ đến ngoài /webapp để không bị ghi đè khi build)
     private static final String UPLOAD_DIR = "uploads";
 
     @Override
@@ -44,7 +44,7 @@ public class CategoryAddController extends HttpServlet {
         
         try {
             String name = req.getParameter("name");
-            String imageUrl = "";
+            String imageFileName = "";
             
             // Validate input
             if (name == null || name.trim().isEmpty()) {
@@ -61,7 +61,7 @@ public class CategoryAddController extends HttpServlet {
                     // Tạo tên file unique để tránh trùng lặp
                     String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
                     
-                    // Đường dẫn thực tế để lưu file
+                    // Đường dẫn thực tế để lưu file (tính từ gốc ứng dụng)
                     String applicationPath = req.getServletContext().getRealPath("");
                     String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
                     
@@ -75,15 +75,15 @@ public class CategoryAddController extends HttpServlet {
                     String filePath = uploadPath + File.separator + uniqueFileName;
                     filePart.write(filePath);
                     
-                    // Lưu đường dẫn relative để hiển thị trên web
-                    imageUrl = UPLOAD_DIR + "/" + uniqueFileName;
+                    // Chỉ lưu tên file vào DB (sẽ dùng ImageServlet để load)
+                    imageFileName = uniqueFileName;
                 }
             }
             
             // Tạo category object
             Category category = new Category();
             category.setCatename(name.trim());
-            category.setIcon(imageUrl);
+            category.setIcon(imageFileName);  // chỉ lưu tên file
             
             // Lưu vào database
             boolean success = categoryService.insert(category);
