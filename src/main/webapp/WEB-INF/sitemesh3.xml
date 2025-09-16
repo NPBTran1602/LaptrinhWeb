@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+  <!-- Dành cho login / đăng ký / quên mật khẩu -->
+  <mapping path="/Login_Controller" decorator="login.jsp"/>
+  <mapping path="/Register_Controller" decorator="login.jsp"/>
+  <mapping path="/ForgetPassController" decorator="login.jsp"/>
+
+  <!-- Admin -->
+  <mapping path="/admin/*" decorator="admin.jsp"/>
+
+  <!-- Web mặc định -->
+  <mapping path="/*" decorator="web.jsp"/>
+</sitemesh>
