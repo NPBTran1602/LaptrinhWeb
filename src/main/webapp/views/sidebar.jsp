@@ -55,7 +55,7 @@
         </div>
         
         <a href="<c:url value='/admin/product/list'/>" class="btn btn-outline-light mb-2 text-start">🛒 Quản lý sản phẩm</a>
-        <a href="<c:url value='/admin/account/list'/>" class="btn btn-outline-light text-start">👤 Quản lý tài khoản</a>
+        <a href="<c:url value='/admin/account/profile'/>" class="btn btn-outline-light text-start">👤 Quản lý tài khoản</a>
     </c:if>
 </div>
 
