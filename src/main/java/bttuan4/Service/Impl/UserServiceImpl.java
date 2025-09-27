@@ -1,8 +1,8 @@
 package bttuan4.Service.Impl;
 
-import bttuan4.Service.UserService;
 import bttuan4.DAO.UserDAO;
 import bttuan4.DAO.Impl.UserDAO_Impl;
+import bttuan4.Service.UserService;
 import bttuan4.model.User;
 
 public class UserServiceImpl implements UserService {

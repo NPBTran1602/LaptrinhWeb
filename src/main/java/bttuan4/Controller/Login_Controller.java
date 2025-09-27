@@ -10,7 +10,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/Login")
 public class Login_Controller extends HttpServlet {
     private UserService userService = new UserServiceImpl();
 
@@ -27,11 +26,13 @@ public class Login_Controller extends HttpServlet {
         String password = req.getParameter("password");
 
         User u = userService.login(username, password);
+        System.out.println("Login attempt for " + username + ", User: " + u);
 
         if (u != null) {
             HttpSession session = req.getSession(true);
             session.setAttribute("account", u);
-            resp.sendRedirect(req.getContextPath() + "/home");
+            System.out.println("Redirecting to /profile");
+            resp.sendRedirect(req.getContextPath() + "/profile"); // Redirect đến /profile
         } else {
             req.setAttribute("alert", "Sai tài khoản hoặc mật khẩu!");
             req.getRequestDispatcher("/views/Login.jsp").forward(req, resp);

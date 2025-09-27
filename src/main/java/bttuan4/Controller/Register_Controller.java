@@ -13,7 +13,7 @@ import jakarta.servlet.http.*;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/dangky")
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024) // 5MB
+@MultipartConfig(maxFileSize = 5 * 1024 * 1024) // Giới hạn 5MB
 public class Register_Controller extends HttpServlet {
     private UserService userService = new UserServiceImpl();
 
@@ -26,7 +26,6 @@ public class Register_Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
@@ -45,14 +44,14 @@ public class Register_Controller extends HttpServlet {
             roleid = 1;
         }
 
-        // validate password
+        // Validate mật khẩu
         if (!password.equals(repassword)) {
             req.setAttribute("alert", "Mật khẩu nhập lại không khớp!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
             return;
         }
 
-        // check tồn tại
+        // Validate email, username tồn tại
         if (userService.checkExistEmail(email)) {
             req.setAttribute("alert", "Email đã tồn tại!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
@@ -64,20 +63,19 @@ public class Register_Controller extends HttpServlet {
             return;
         }
 
-        // xử lý upload avatar
+        // Xử lý upload avatar
         Part avatarPart = req.getPart("avatar");
-        String avatarFileName = "default.png"; // mặc định
-
+        String avatarFileName = "uploads/default.png"; // avatar mặc định
         if (avatarPart != null && avatarPart.getSize() > 0) {
             String uploadPath = req.getServletContext().getRealPath("/uploads");
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) uploadDir.mkdirs();
 
-            avatarFileName = System.currentTimeMillis() + "_" + avatarPart.getSubmittedFileName();
-            avatarPart.write(uploadPath + File.separator + avatarFileName);
+            avatarFileName = "uploads/" + System.currentTimeMillis() + "_" + avatarPart.getSubmittedFileName();
+            avatarPart.write(uploadPath + File.separator + avatarFileName.substring(8)); // bỏ "uploads/"
         }
 
-        // tạo user
+        // Tạo user mới
         User user = new User();
         user.setFullname(fullname);
         user.setUsername(username);
@@ -85,12 +83,12 @@ public class Register_Controller extends HttpServlet {
         user.setPassword(password);
         user.setPhone(phone);
         user.setRoleid(roleid);
-        user.setAvatar(avatarFileName); // chỉ lưu tên file
+        user.setAvatar(avatarFileName);
 
         boolean isSuccess = userService.register(user);
 
         if (isSuccess) {
-            resp.sendRedirect(req.getContextPath() + "/Login");
+            resp.sendRedirect(req.getContextPath() + "/Login"); // Redirect đến trang đăng nhập
         } else {
             req.setAttribute("alert", "Lỗi hệ thống!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);

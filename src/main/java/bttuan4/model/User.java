@@ -1,46 +1,33 @@
-package bttuan4.model;
+package bttuan4.model;  // Hoặc bttuan4.model nếu đó là gói đúng
 
-import jakarta.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
-@Entity
-@Table(name = "[User]")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // id tự tăng
-    private int id;
-
-    @Column(nullable = false, unique = true, length = 100)
-    private String email;
-
-    @Column(nullable = false, unique = true, length = 50)
+public class User {  // Viết hoa tên lớp nếu đang viết thường
+    private String fullname;  // Trường cho fullname
     private String username;
-
-    @Column(nullable = false, length = 100)
-    private String fullname;
-
-    @Column(nullable = false, length = 255)
+    private String email;
     private String password;
-
-    @Column(length = 255)
-    private String avatar;
-
-    @Column
-    private int roleid;
-
-    @Column(length = 20)
     private String phone;
+    private String avatar;
+    private int roleid;
+    // Thêm các trường khác nếu cần (ví dụ: createdDate)
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate = new Date();
-
-    // ====== Getter & Setter ======
-    public int getId() {
-        return id;
+    // Getter và Setter cho fullname
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    // Thêm getter/setter cho các trường khác (ví dụ: getPhone, setPhone, getAvatar, v.v.)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -51,28 +38,20 @@ public class User {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAvatar() {
@@ -91,19 +70,11 @@ public class User {
         this.roleid = roleid;
     }
 
-    public String getPhone() {
-        return phone;
-    }
+    // Constructor(s) nếu cần
+    public User() {}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setCreatedDate(Date date) {
+		// TODO Auto-generated method stub
+		
+	}
 }
