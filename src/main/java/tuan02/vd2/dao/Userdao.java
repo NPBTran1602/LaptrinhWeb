@@ -12,5 +12,6 @@ public interface Userdao {
     user findByUsernameAndPassword(String username, String password);
 	void insert(user User);
 	String findEmailByUsername(String username);
+	void update(user account);
 
 }

@@ -160,5 +160,23 @@ public class UserdaoImpl implements Userdao {
 	    return email;
 	}
 
+	@Override
+	public void update(user account) {
+	    String sql = "UPDATE [User] SET fullname=?, phone=?, avatar=? WHERE id=?";
+	    try {
+	        conn = new DBconnection().getConnection();
+	        ps = conn.prepareStatement(sql);
+	        ps.setString(1, account.getFullName());
+	        ps.setString(2, account.getPhone());
+	        ps.setString(3, account.getAvatar());
+	        ps.setInt(4, account.getId());
+	        ps.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        DBconnection.close(conn, ps, rs);
+	    }
+	}
+
 
 }
